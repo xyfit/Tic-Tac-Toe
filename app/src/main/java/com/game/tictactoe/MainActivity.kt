@@ -8,15 +8,35 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MainActivity : AppCompatActivity() {
     var gamerPos = 1
     val firstGamerList = mutableListOf<Int>()
     val secondGamerList = mutableListOf<Int>()
+    lateinit var gamer1Text: TextView
+    lateinit var gamer2Text: TextView
+    lateinit var gamerPosText: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        gamer1Text = findViewById(R.id.gamer1_name)
+        gamer2Text = findViewById(R.id.gamer2_name)
+        gamerPosText = findViewById(R.id.str)
+
+
+        for (i in 1..9){
+            val btnId = "btn_$i"
+            val resId = resources.getIdentifier(btnId, "id", packageName)
+             finByList.add(findViewById<Button>(resId))
+        }
+        showDialog()
+
+        findViewById<MaterialButton>(R.id.refresh_brn).setOnClickListener {
+            restart()
+        }
     }
 
     fun onClickBtn(view: View) {
@@ -73,8 +93,8 @@ class MainActivity : AppCompatActivity() {
             this.gamerPos = 1
             secondGamerList.add(btnNum)
         }
-            btn.isEnabled = false
-            checkWinner()
+        btn.isEnabled = false
+        checkWinner()
     }
 
     private fun checkWinner() {
@@ -142,21 +162,72 @@ class MainActivity : AppCompatActivity() {
             winner = 2
         }
 
+        queue()
         if (winner != 0) {
-            val str = findViewById<TextView>(R.id.str)
-            if (gamerPos == 1) {
-                str.text = "0 yutti"
-            } else {
-                str.text = "X yutti"
+            if (winner == 1){
+                winGamer2++
+                gamerPosText.text = "X winner"
+            }else{
+                winGamer1++
+                gamerPosText.text = "0 winner"
             }
-
+            gamer1Text.text = "0-Gamer: $winGamer1"
+            gamer2Text.text = "X-Gamer: $winGamer2"
+            gameOver()
         }
-}
-    private fun gameOver(){
+    }
+    private fun queue(){
+        if (gamerPos == 1) {
+            gamerPosText.text = "Turn X"
+        } else {
+            gamerPosText.text = "Turn 0"
+        }
+    }
+
+    companion object {
+        var winGamer1 = 0
+        var winGamer2 = 0
+        val finByList = mutableListOf<Button>()
+    }
+
+    private fun gameOver() {
+        finByList.forEach {
+            it.isEnabled = false
+        }
+    }
+
+    private fun restart() {
+        finByList.forEach {
+            it.text = null
+            it.isEnabled = true
+        }
+        queue()
+        firstGamerList.clear()
+        secondGamerList.clear()
 
     }
 
-private fun showToast(s: String) {
-    Toast.makeText(this, s, Toast.LENGTH_SHORT).show()
-}
+    private fun showDialog() {
+        val view = layoutInflater.inflate(R.layout.gamers_names_ly, null)
+        MaterialAlertDialogBuilder(this, R.style.ThemeOverlay_App_MaterialAlertDialog).apply {
+            setTitle("Title")
+            setView(view)
+            setMessage("Lorem ipsum message")
+            setNeutralButton("Chiqish") { dialog, which ->
+                // Respond to neutral button press
+            }
+            setNegativeButton("Bekor qilish") { dialog, which ->
+                // Respond to negative button press
+            }
+            setPositiveButton("Saqlash") { dialog, which ->
+                // Respond to positive button press
+            }
+            show()
+        }
+
+    }
+
+    private fun showToast(s: String) {
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show()
+    }
 }

@@ -4,21 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="@drawable/img_3"
     tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/gamer1_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toStartOf="@+id/str"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="0-Gamer: 0" />
+
+    <TextView
+        android:id="@+id/gamer2_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toStartOf="@+id/str"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gamer1_name"
+        android:text="X-Gamer: 0" />
 
     <TextView
         android:id="@+id/str"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:text="Turn X"
         android:textColor="@color/black"
-        android:textSize="40sp"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="@+id/gamer2_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
@@ -37,14 +68,7 @@
 
             <Button
                 android:id="@+id/btn_1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="X"
-                android:background="@android:color/transparent"
-                android:textSize="40sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
+                style="@style/colum_style"
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <View style="@style/verticalLine" />
@@ -62,13 +86,9 @@
                 tools:ignore="SpeakableTextPresentCheck" />
         </LinearLayout>
 
-        <View style="@style/horizontalLine"
+        <View style="@style/horizontalLine" />
 
-            android:layout_marginTop="10dp"/>
-
-        <LinearLayout style="@style/row_style"
-
-            android:layout_marginTop="10dp">
+        <LinearLayout style="@style/row_style">
 
             <Button
                 android:id="@+id/btn_4"
@@ -92,8 +112,7 @@
 
         <View style="@style/horizontalLine" />
 
-        <LinearLayout style="@style/row_style"
-            android:layout_marginTop="10dp">
+        <LinearLayout style="@style/row_style">
 
             <Button
                 android:id="@+id/btn_7"
@@ -116,4 +135,19 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/refresh_brn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:icon="@drawable/ic_sharp_circle"
+        android:onClick="onClickBtn"
+        style="@style/Widget.Material3.Button.Icon"
+        android:paddingVertical="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        android:text="Refresh" />
 </androidx.constraintlayout.widget.ConstraintLayout>
